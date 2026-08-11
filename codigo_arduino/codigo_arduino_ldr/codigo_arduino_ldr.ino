@@ -5,6 +5,9 @@
 #define DHTTYPE DHT22
 
 #define LDRPIN A0
+#define led_vermelho 7
+#define led_amarelo 6
+#define led_verde 5
 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -35,14 +38,27 @@ void loop() {
   digitalWrite(led_amarelo, LOW); 
   digitalWrite(led_vermelho, LOW);
 
- 
+
 
 // Comparação da luminosidade 
-if (luz < limite_baixo) { 
-  digitalWrite(led_vermelho, HIGH); }
-else if (luz < limite_alto) { 
-  digitalWrite(led_amarelo, HIGH); }
-else { digitalWrite(led_verde, HIGH); }
+if (luz > 200) { 
+  digitalWrite(led_vermelho, HIGH);
+  digitalWrite(led_amarelo, LOW);
+  digitalWrite(led_verde, LOW); 
+
+
+  }
+else if (luz > 100 && luz < 200) { 
+  digitalWrite(led_amarelo, HIGH);
+  digitalWrite(led_verde, LOW); 
+  digitalWrite(led_vermelho, LOW);
+}
+else if (luz < 100) {
+    digitalWrite(led_vermelho, LOW);
+    digitalWrite(led_amarelo, LOW);
+    digitalWrite(led_verde, HIGH); 
+ }
+
 
 
 
