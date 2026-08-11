@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard SmartClass IoT</title>
+</head>
+
+<body>
+
+    <h1>Dashboard SmartClass IoT</h1>
+
+    <button id="conectar">Conectar Arduino</button>
+
+    <p>Temperatura: <span id="temp">--</span> °C</p>
+    <p>Umidade: <span id="umid">--</span> %</p>
+    <p>Luminosidade: <span id="luz">--</span></p>
+    <p>Status: <span id="status">aguardando</span></p>
+
+    <script>
+        const temp = document.querySelector('#temp');
+        const umid = document.querySelector('#umid');
+        const luz = document.querySelector('#luz');
+        const status = document.querySelector('#status');
+
+        document.querySelector('#conectar').onclick = async () => {
+            const porta = await navigator.serial.requestPort();
+
+            await porta.open({
+                baudRate: 9600
+            });
+
+            const decoder = new TextDecoderStream();
+
+            porta.readable.pipeTo(decoder.writable);
+
+            const reader = decoder.readable.getReader();
+
+            let buffer = '';
+
+            while (true) {
+                const { value, done } = await reader.read();
+
+                if (done) {
+                    break;
+                }
+
+                buffer += value;
+
+                const linhas = buffer.split('\n');
+
+                buffer = linhas.pop();
+
+                linhas.forEach(linha => {
+                    try {
+                        const dados = JSON.parse(linha.trim());
+
+                        temp.textContent = dados.temperatura ?? '--';
+                        umid.textContent = dados.umidade ?? '--';
+                        luz.textContent = dados.luminosidade ?? '--';
+
+                        status.textContent = dados.alerta
+                            ? 'ALERTA'
+                            : 'normal';
+
+                    } catch (e) {
+                        // Ignora linhas que não sejam JSON válido
+                    }
+                });
+            }
+        };
+    </script>
+
+</body>
+
+</html>
