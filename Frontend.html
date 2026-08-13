@@ -4,11 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard SmartClass IoT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color: #172033; background: #f6f8fc; }
+        * { box-sizing: border-box; }
+        body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at top left, #d8fff0, transparent 35%), radial-gradient(circle at bottom right, #cddcff, transparent 40%), #f6f8fc; }
+        main { width: min(100%, 760px); padding: 42px; border: 1px solid rgba(255,255,255,.8); border-radius: 28px; background: rgba(255,255,255,.84); box-shadow: 0 24px 60px rgba(45,70,120,.16); backdrop-filter: blur(12px); }
+        h1 { margin: 0 0 28px; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.05em; }
+    
+    j    h1::before { content: "MONITORAMENTO EM TEMPO REAL"; display: block; margin-bottom: 8px; color: #4962c5; font-size: .8rem; font-weight: 800; letter-spacing: .12em; }
+        button { width: 100%; padding: 15px 20px; border: 0; border-radius: 14px; color: #fff; background: linear-gradient(135deg, #546de5, #3850bd); box-shadow: 0 10px 18px rgba(56,80,189,.24); font: inherit; font-weight: 750; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 14px 24px rgba(56,80,189,.3); }
+        body > main > p:not(:last-of-type) { display: inline-flex; flex-direction: column; width: calc((100% - 36px) / 3); min-height: 120px; margin: 28px 12px 28px 0; padding: 20px; border-radius: 18px; background: #f4f7ff; color: #68738d; font-size: .88rem; font-weight: 650; }
+        body > main > p:nth-of-type(2) { background: #edfbf6; }
+        body > main > p:nth-of-type(3) { margin-right: 0; background: #fff7e8; }
+        body > main > p:not(:last-of-type) span { margin-top: 8px; color: #172033; font-size: 1.7rem; font-weight: 800; letter-spacing: -.04em; }
+        body > main > p:last-of-type { display: flex; align-items: center; gap: 9px; margin: 0; color: #65708a; font-size: .94rem; }
+        body > main > p:last-of-type::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #f4ae3d; box-shadow: 0 0 0 4px #fff3dc; }
+        #status { color: #172033; font-weight: 750; text-transform: capitalize; }
+        @media (max-width: 560px) { body { padding: 16px; } main { padding: 28px 22px; border-radius: 22px; } body > main > p:not(:last-of-type) { display: flex; width: 100%; margin: 16px 0 0; } body > main > p:last-of-type { margin-top: 24px; } }
+    </style>J
 </head>
 
 <body>
 
-    <h1>Dashboard SmartClass IoT</h1>
+    <main>
+        <h1>Dashboard SmartClass IoT</h1>
 
     <button id="conectar">Conectar Arduino</button>
 
@@ -16,6 +37,8 @@
     <p>Umidade: <span id="umid">--</span> %</p>
     <p>Luminosidade: <span id="luz">--</span></p>
     <p>Status: <span id="status">aguardando</span></p>
+
+    </main>
 
     <script>
         const temp = document.querySelector('#temp');
