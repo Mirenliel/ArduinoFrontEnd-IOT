@@ -77,4 +77,19 @@ else if (luz < 100) {
 
   Serial.print("Luminosidade: ");
   Serial.println(luz);
+
+  // json
+
+    Serial.print("{");
+    Serial.print("\"temperatura\":");
+    Serial.print(t);
+
+    Serial.print(",\"umidade\":");
+    Serial.print(h);
+
+    Serial.print(",\"luminosidade\":");
+    Serial.print(luz);
+
+    Serial.println("}");
+
 }
