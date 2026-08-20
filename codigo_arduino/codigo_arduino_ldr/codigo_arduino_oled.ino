@@ -95,6 +95,7 @@ void setup() {
     while (true);
   }
 
+
   display.clearDisplay();
 
   display.setTextColor(SSD1306_WHITE);
